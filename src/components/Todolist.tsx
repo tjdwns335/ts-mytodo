@@ -1,6 +1,14 @@
 import { getTodos, removeTodo, switchTodo } from "api/todo";
 import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  ButtonGroup,
+  DeleteButton,
+  SwitchButton,
+  TodoContents,
+  TodoListWrap,
+  TodoTitleStyle,
+} from "style/TodoListStyle";
 
 interface TodoListProps {
   isActive: boolean;
@@ -30,38 +38,43 @@ const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
       isDone: !isDone,
     };
     switchMutation.mutate(payload);
-    console.log(id, isDone);
   };
   const onClickRemoveHandler = (id: string) => {
-    removeMutation.mutate(id);
+    const deleteConfirm = window.confirm("삭제하시겠습니까?");
+    if (deleteConfirm) {
+      removeMutation.mutate(id);
+    }
   };
   return (
     <>
       <div>
-        <h1>{isActive ? "해야 할 일 " : "완료한 일 ☑️"}</h1>
+        <TodoTitleStyle>
+          {isActive ? "해야 할 일 " : "완료한 일 ☑️"}
+        </TodoTitleStyle>
       </div>
-      <div>
+      <TodoListWrap>
         {data
           ?.filter((item) => item.isDone === !isActive)
           .map((item) => {
             return (
-              <div key={item.id}>
+              <TodoContents key={item.id}>
                 <h2>{item.title}</h2>
                 <p>{item.content}</p>
-                <div>
-                  <button
+                <ButtonGroup>
+                  <SwitchButton
+                    isActive={isActive}
                     onClick={() => onClickSwitchHandler(item.id, item.isDone)}
                   >
                     {isActive ? "완료" : "취소"}
-                  </button>
-                  <button onClick={() => onClickRemoveHandler(item.id)}>
+                  </SwitchButton>
+                  <DeleteButton onClick={() => onClickRemoveHandler(item.id)}>
                     삭제
-                  </button>
-                </div>
-              </div>
+                  </DeleteButton>
+                </ButtonGroup>
+              </TodoContents>
             );
           })}
-      </div>
+      </TodoListWrap>
     </>
   );
 };
