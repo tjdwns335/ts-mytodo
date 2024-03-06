@@ -1,7 +1,19 @@
+import { addTodo } from "api/todo";
 import React, { ChangeEvent, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import { ButtonStyle, FormStyle, InputGroup } from "style/TodoInputStyle";
+import { v4 as uuid } from "uuid";
 
 function TodoInput() {
+  const queryClient = useQueryClient();
+
+  // TODO: addTodo
+  const mutation = useMutation(addTodo, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries("todos");
+    },
+  });
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,22 +31,21 @@ function TodoInput() {
       return;
     }
 
+    const newTodo = {
+      id: uuid(),
+      title,
+      content,
+      isDone: false,
+    };
+
+    mutation.mutate(newTodo);
+
     setTitle("");
     setContent("");
   };
-  interface Todo {
-    title: string;
-    content: string;
-    isDone: boolean;
-  }
-  const newTodo: Todo = {
-    title,
-    content,
-    isDone: false,
-  };
 
   return (
-    <FormStyle onSubmit={(e) => onClickSubmit}>
+    <FormStyle onSubmit={onClickSubmit}>
       <InputGroup>
         <label>제목</label>
         <input
