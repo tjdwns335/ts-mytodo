@@ -49,7 +49,7 @@ const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
     <>
       <div>
         <TodoTitleStyle>
-          {isActive ? "해야 할 일 " : "완료한 일 ☑️"}
+          {isActive ? "해야 할 일🔥 " : "완료한 일 ☑️"}
         </TodoTitleStyle>
       </div>
       <TodoListWrap>
@@ -61,15 +61,15 @@ const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
                 <h2>{item.title}</h2>
                 <p>{item.content}</p>
                 <ButtonGroup>
+                  <DeleteButton onClick={() => onClickRemoveHandler(item.id)}>
+                    삭제
+                  </DeleteButton>
                   <SwitchButton
                     isActive={isActive}
                     onClick={() => onClickSwitchHandler(item.id, item.isDone)}
                   >
                     {isActive ? "완료" : "취소"}
                   </SwitchButton>
-                  <DeleteButton onClick={() => onClickRemoveHandler(item.id)}>
-                    삭제
-                  </DeleteButton>
                 </ButtonGroup>
               </TodoContents>
             );
