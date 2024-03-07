@@ -15,7 +15,7 @@ interface TodoListProps {
 }
 
 const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
-  const { data } = useQuery("todos", getTodos);
+  const { data: todos } = useQuery("todos", getTodos);
 
   const queryClient = useQueryClient();
 
@@ -53,7 +53,7 @@ const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
         </TodoTitleStyle>
       </div>
       <TodoListWrap>
-        {data
+        {todos
           ?.filter((item) => item.isDone === !isActive)
           .map((item) => {
             return (
