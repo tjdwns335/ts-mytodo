@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SERVER_URI: string = "http://localhost:4000";
+const SERVER_URI: string | undefined = process.env.REACT_APP_SERVER_URL;
 
 interface Todo {
   id: string;
