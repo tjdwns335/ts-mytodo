@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __getTodos } from "todoRedux/modules/todosSlice";
+import {
+  __deleteTodo,
+  __getTodos,
+  __switchTodo,
+} from "todoRedux/modules/todosSlice";
+import { RootState } from "todoRedux/config/configStore";
 import {
   ButtonGroup,
   DeleteButton,
@@ -9,7 +14,6 @@ import {
   TodoListWrap,
   TodoTitleStyle,
 } from "style/TodoListStyle";
-import { RootState } from "todoRedux/config/configStore";
 
 interface TodoListProps {
   isActive: boolean;
@@ -18,21 +22,18 @@ interface TodoListProps {
 const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.todos.todos);
-  console.log(data);
 
   useEffect(() => {
     dispatch(__getTodos() as any);
   }, [dispatch]);
 
   const onClickSwitchHandler = (id: string, isDone: boolean) => {
-    const payload = {
-      id,
-      isDone: !isDone,
-    };
+    dispatch(__switchTodo({ id, isDone }) as any);
   };
   const onClickRemoveHandler = (id: string) => {
     const deleteConfirm = window.confirm("삭제하시겠습니까?");
     if (deleteConfirm) {
+      dispatch(__deleteTodo(id) as any);
     }
   };
   return (
