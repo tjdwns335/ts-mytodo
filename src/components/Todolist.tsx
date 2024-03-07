@@ -1,6 +1,6 @@
-import { getTodos, removeTodo, switchTodo } from "api/todo";
-import React from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { __getTodos } from "todoRedux/modules/todosSlice";
 import {
   ButtonGroup,
   DeleteButton,
@@ -9,40 +9,30 @@ import {
   TodoListWrap,
   TodoTitleStyle,
 } from "style/TodoListStyle";
+import { RootState } from "todoRedux/config/configStore";
 
 interface TodoListProps {
   isActive: boolean;
 }
 
 const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
-  const { data } = useQuery("todos", getTodos);
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.todos.todos);
+  console.log(data);
 
-  const queryClient = useQueryClient();
-
-  // TODO: removeTodo
-  const removeMutation = useMutation(removeTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
-  // TODO: switchTodo
-  const switchMutation = useMutation(switchTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
+  useEffect(() => {
+    dispatch(__getTodos() as any);
+  }, [dispatch]);
 
   const onClickSwitchHandler = (id: string, isDone: boolean) => {
     const payload = {
       id,
       isDone: !isDone,
     };
-    switchMutation.mutate(payload);
   };
   const onClickRemoveHandler = (id: string) => {
     const deleteConfirm = window.confirm("삭제하시겠습니까?");
     if (deleteConfirm) {
-      removeMutation.mutate(id);
     }
   };
   return (

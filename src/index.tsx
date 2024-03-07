@@ -4,15 +4,17 @@ import "index.css";
 import App from "App";
 import reportWebVitals from "reportWebVitals";
 import { GlobalStyle } from "style/GlobalStyle";
+import { Provider } from "react-redux";
+import store from "todoRedux/config/configStore";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
     <GlobalStyle />
-  </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

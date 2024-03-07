@@ -1,4 +1,3 @@
-import { getTodos } from "api/todo";
 import Header from "components/Header";
 import TodoInput from "components/TodoInput";
 import Todolist from "components/Todolist";
