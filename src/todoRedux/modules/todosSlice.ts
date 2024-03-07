@@ -1,8 +1,8 @@
 import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AsyncThunkConfig } from "@reduxjs/toolkit/dist/createAsyncThunk";
 import { jsonApi } from "api/todo";
-import { RootState } from "todoRedux/config/configStore";
 import { getTodoFromDB } from "utill/getTodoFromDB";
+
 export interface Todo {
   id: string;
   title: string;
