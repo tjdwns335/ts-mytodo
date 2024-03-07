@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+## Todolist를 Typescript로 만들어 봅시다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 레벨
 
-## Available Scripts
+- 레벨1 : React 이용 Todolist
+- 레벨2 : RTK 이용 Todolist : 완료
+- 레벨3 : RTK + json-server 이용 Todolist : 완료
+- 레벨4 : RTK + redux thunk 이용 Todolist : 완료
+- 레벨5 : RTK + react-query 이용 Todolist : 완료
 
-In the project directory, you can run:
+### 필수 구현 사항(모든 구현 사항은 Typescript로 작성돼야 합니다)
 
-### `npm start`
+- **Todo 항목 추가 하기**
+  - 사용자가 새로운 Todo 항목을 입력하고 추가 할 수 있는 기능.
+- **Todo 항목 목록 표시 기능**
+  - 각 Todo 하목은 고유 식별자를 가짐
+- **Todo 삭제 하기**
+  - 삭제 시 사용자에게 삭제 확인 요청
+- **Todo 완료 상태 표시 기능**
+  - 사용자가 Todo 항목을 완료했음을 표시
+- 제출을 위한 **GIT 관련 내용(중요)**
+  - 본인이 선택하신 레벨에 맞는 branch명을 만들어주세요.
+  - 여러 레벨을 구현하기 원하시는 분들은 branch명을 level1, level2 처럼 여러가지 브랜치를 만들어주시면 됩니다
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+✅ **체크리스트**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. **기본 요구사항**
 
-### `npm test`
+   - [x] Todo 항목 추가, 목록 표시, 삭제, 완료 상태 표시 기능이 모두 구현되어 있나요?
+   - [x] UI(사용자 인터페이스) 및 UX(사용자 경험)이 명확한가요?
+   - [x] 할일 입력, 삭제, 상태 변경 등의 기능이 정상 작동하나요?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. **Typescript**
+   - [x] 강의에서 배운 내용을 토대로 Typescript로 작성하셨나요?
+   - [ ] Typescript의 타입 안정성을 활용하고 계신가요?(예를 들어 변수와 함수의 타입이 명시되어 있는지)
+3. **레벨에 맞는 구현**
+   - [x] 선택한 레벨(1~5)에 맞는 기능이 구현되어 있나요?
+   - [x] 레벨에 따른 추가 요구사항(예: RTK, json-server, redux thunk, react-query 사용)이 충족되었나요?
+4. **디자인 및 레이아웃 준수**
+   - [x] 화면 구성이 요구 사항(최대 넓이 1200px, 최소 넓이 800px, 전체 화면 가운데 정렬)에 맞게 되어 있나요?
+   - [ ] 디자인이 사용자 친화적이며, 코드는 협업을 위하여 가독성과 접근성을 고려하여 구성되었나요?
+5. **코드 구조 및 문서화**
+   - [ ] 컴포넌트 구조가 효율적으로 구성되었나요?
+   - [ ] 반복되는 부분이 적절히 분리되었나요?
+   - [x] 프로젝트의 README 파일에 컴포넌트 구조 및 사용 방법이 명확하게 문서화되어 있나요?
