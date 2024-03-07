@@ -1,8 +1,10 @@
+import { jsonApi } from "api/todo";
 import React, { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ButtonStyle, FormStyle, InputGroup } from "style/TodoInputStyle";
 import { AppDispatch } from "todoRedux/config/configStore";
-import { __addTodo } from "todoRedux/modules/todosSlice";
+import { addTodo } from "todoRedux/modules/todosSlice";
+import { getTodoFromDB } from "utill/getTodoFromDB";
 import { v4 as uuid } from "uuid";
 
 function TodoInput() {
@@ -17,7 +19,7 @@ function TodoInput() {
     setContent(e.target.value);
   };
 
-  const onClickSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onClickSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!title || !content) {
       alert("제목과 내용을 입력해주세요");
@@ -31,7 +33,14 @@ function TodoInput() {
       isDone: false,
     };
 
-    dispatch(__addTodo(newTodo));
+    try {
+      await jsonApi.post("/todos", newTodo);
+      dispatch(addTodo(newTodo));
+      const todos = await getTodoFromDB();
+      return todos;
+    } catch (error) {
+      console.log(error);
+    }
 
     setTitle("");
     setContent("");

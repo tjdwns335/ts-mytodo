@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "todoRedux/config/configStore";
-import {
-  __deleteTodo,
-  __getTodos,
-  __switchTodo,
-} from "todoRedux/modules/todosSlice";
+import { jsonApi } from "api/todo";
+import { getTodoFromDB } from "utill/getTodoFromDB";
 import {
   ButtonGroup,
   DeleteButton,
@@ -14,6 +11,11 @@ import {
   TodoListWrap,
   TodoTitleStyle,
 } from "style/TodoListStyle";
+import {
+  __getTodos,
+  deleteTodo,
+  switchTodo,
+} from "todoRedux/modules/todosSlice";
 
 interface TodoListProps {
   isActive: boolean;
@@ -27,13 +29,27 @@ const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
     dispatch(__getTodos());
   }, [dispatch]);
 
-  const onClickSwitchHandler = (id: string, isDone: boolean) => {
-    dispatch(__switchTodo({ id, isDone }));
+  const onClickSwitchHandler = async (id: string, isDone: boolean) => {
+    try {
+      await jsonApi.patch(`/todos/${id}`, { isDone: !isDone });
+      dispatch(switchTodo(id));
+      const todos = await getTodoFromDB();
+      return todos;
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const onClickRemoveHandler = (id: string) => {
+  const onClickRemoveHandler = async (id: string) => {
     const deleteConfirm = window.confirm("삭제하시겠습니까?");
     if (deleteConfirm) {
-      dispatch(__deleteTodo(id));
+      try {
+        await jsonApi.delete(`/todos/${id}`);
+        dispatch(deleteTodo(id));
+        const todos = await getTodoFromDB();
+        return todos;
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   return (
