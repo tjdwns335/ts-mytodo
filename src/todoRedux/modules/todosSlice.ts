@@ -1,6 +1,4 @@
-import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AsyncThunkConfig } from "@reduxjs/toolkit/dist/createAsyncThunk";
-import { getTodoFromDB } from "utill/getTodoFromDB";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface Todo {
   id: string;
@@ -9,33 +7,22 @@ export interface Todo {
   isDone: boolean;
 }
 
-type initialState = {
-  todos: Todo[];
-  isLoading: boolean;
-  isError: boolean;
-  error: any;
+const initialState = {
+  todos: [
+    {
+      id: "fea31",
+      title: "test",
+      content: "테스트해보자",
+      isDone: false,
+    },
+    {
+      id: "fea33",
+      title: "test",
+      content: "테스트해봤다",
+      isDone: true,
+    },
+  ],
 };
-
-const initialState: initialState = {
-  todos: [],
-  isLoading: false,
-  isError: false,
-  error: null,
-};
-
-type TodoAsyncThunk = AsyncThunk<Todo[], void, AsyncThunkConfig>;
-
-export const __getTodos: TodoAsyncThunk = createAsyncThunk(
-  "getTodos",
-  async (_, thunkAPI) => {
-    try {
-      const todos = await getTodoFromDB();
-      return todos;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
 
 const todosSlice = createSlice({
   name: "todos",
@@ -57,22 +44,6 @@ const todosSlice = createSlice({
         }
       });
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(__getTodos.pending, (state) => {
-      state.isLoading = true;
-      state.isError = false;
-    });
-    builder.addCase(__getTodos.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.isError = false;
-      state.todos = action.payload;
-    });
-    builder.addCase(__getTodos.rejected, (state, action) => {
-      state.isLoading = false;
-      state.isError = true;
-      state.error = action.payload;
-    });
   },
 });
 
