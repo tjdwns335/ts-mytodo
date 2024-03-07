@@ -1,5 +1,5 @@
-import { getTodos, removeTodo, switchTodo } from "api/todo";
 import React from "react";
+import { getTodos, removeTodo, switchTodo } from "api/todo";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
   ButtonGroup,
