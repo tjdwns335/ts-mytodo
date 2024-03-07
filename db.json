@@ -4,13 +4,13 @@
       "id": "fea31",
       "title": "test",
       "content": "테스트해보자",
-      "isDone": true
+      "isDone": false
     },
     {
       "id": "fea33",
       "title": "test",
       "content": "테스트해봤다",
-      "isDone": false
+      "isDone": true
     },
     {
       "id": "9b009680-4304-4975-bb80-367982085003",

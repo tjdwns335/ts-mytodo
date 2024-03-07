@@ -1,13 +1,14 @@
 import React, { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ButtonStyle, FormStyle, InputGroup } from "style/TodoInputStyle";
+import { AppDispatch } from "todoRedux/config/configStore";
 import { __addTodo } from "todoRedux/modules/todosSlice";
 import { v4 as uuid } from "uuid";
 
 function TodoInput() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -30,7 +31,7 @@ function TodoInput() {
       isDone: false,
     };
 
-    dispatch(__addTodo(newTodo) as any);
+    dispatch(__addTodo(newTodo));
 
     setTitle("");
     setContent("");

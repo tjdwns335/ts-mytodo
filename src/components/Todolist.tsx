@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "todoRedux/config/configStore";
+import { AppDispatch, RootState } from "todoRedux/config/configStore";
 import {
   __deleteTodo,
   __getTodos,
@@ -20,20 +20,20 @@ interface TodoListProps {
 }
 
 const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
-  const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.todos.todos);
+  const dispatch = useDispatch<AppDispatch>();
+  const todos = useSelector((state: RootState) => state.todos.todos);
 
   useEffect(() => {
-    dispatch(__getTodos() as any);
+    dispatch(__getTodos());
   }, [dispatch]);
 
   const onClickSwitchHandler = (id: string, isDone: boolean) => {
-    dispatch(__switchTodo({ id, isDone }) as any);
+    dispatch(__switchTodo({ id, isDone }));
   };
   const onClickRemoveHandler = (id: string) => {
     const deleteConfirm = window.confirm("삭제하시겠습니까?");
     if (deleteConfirm) {
-      dispatch(__deleteTodo(id) as any);
+      dispatch(__deleteTodo(id));
     }
   };
   return (
@@ -44,7 +44,7 @@ const Todolist: React.FC<TodoListProps> = ({ isActive }) => {
         </TodoTitleStyle>
       </div>
       <TodoListWrap>
-        {data
+        {todos
           ?.filter((item) => item.isDone === !isActive)
           .map((item) => {
             return (
