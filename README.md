@@ -3,10 +3,10 @@
 ### 레벨
 
 - 레벨1 : React 이용 Todolist
-- 레벨2 : RTK 이용 Todolist : 완료
-- 레벨3 : RTK + json-server 이용 Todolist : 완료
-- 레벨4 : RTK + redux thunk 이용 Todolist : 완료
-- 레벨5 : RTK + react-query 이용 Todolist : 완료
+- [x] 레벨2 : RTK 이용 Todolist : 완료
+- [x] 레벨3 : RTK + json-server 이용 Todolist : 완료
+- [x] 레벨4 : RTK + redux thunk 이용 Todolist : 완료
+- [x] 레벨5 : RTK + react-query 이용 Todolist : 완료
 
 ### 필수 구현 사항(모든 구현 사항은 Typescript로 작성돼야 합니다)
 
