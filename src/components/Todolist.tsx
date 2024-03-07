@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "todoRedux/config/configStore";
 import {
   __deleteTodo,
   __getTodos,
   __switchTodo,
 } from "todoRedux/modules/todosSlice";
-import { RootState } from "todoRedux/config/configStore";
 import {
   ButtonGroup,
   DeleteButton,

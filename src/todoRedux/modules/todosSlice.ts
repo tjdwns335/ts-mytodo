@@ -1,6 +1,8 @@
 import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AsyncThunkConfig } from "@reduxjs/toolkit/dist/createAsyncThunk";
 import { jsonApi } from "api/todo";
+import { RootState } from "todoRedux/config/configStore";
+import { getTodoFromDB } from "utill/getTodoFromDB";
 export interface Todo {
   id: string;
   title: string;
@@ -19,16 +21,11 @@ const initialState: initialState = {
   isError: false,
   error: null,
 };
-type TodoAsyncThunk = AsyncThunk<Todo[], void, AsyncThunkConfig>;
-
-const getTodoFromDB = async () => {
-  const { data } = await jsonApi.get("/todos");
-  return data as Todo[];
-};
+export type TodoAsyncThunk = AsyncThunk<Todo[], void, AsyncThunkConfig>;
 
 export const __getTodos: TodoAsyncThunk = createAsyncThunk(
   "getTodos",
-  async (payload, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const todos = await getTodoFromDB();
       return todos;
@@ -43,8 +40,8 @@ export const __addTodo = createAsyncThunk(
   async (newTodo: Todo, thunkAPI) => {
     try {
       await jsonApi.post("/todos", newTodo);
-      const { data } = await jsonApi.get("/todos");
-      return data as Todo[];
+      const todos = await getTodoFromDB();
+      return todos;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -56,8 +53,8 @@ export const __deleteTodo = createAsyncThunk(
   async (id: string, thunkAPI) => {
     try {
       await jsonApi.delete(`/todos/${id}`);
-      const { data } = await jsonApi.get("/todos");
-      return data as Todo[];
+      const todos = await getTodoFromDB();
+      return todos;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -69,8 +66,8 @@ export const __switchTodo = createAsyncThunk(
   async ({ id, isDone }: { id: string; isDone: boolean }, thunkAPI) => {
     try {
       await jsonApi.patch(`/todos/${id}`, { isDone: !isDone });
-      const { data } = await jsonApi.get("/todos");
-      return data as Todo[];
+      const todos = await getTodoFromDB();
+      return todos;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
