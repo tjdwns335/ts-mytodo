@@ -1,3 +1,4 @@
+배포 URL : https://ts-mytodo.vercel.app/
 ## Todolist를 Typescript로 만들어 봅시다.
 
 ### 레벨
